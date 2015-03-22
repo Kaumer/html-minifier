@@ -23,9 +23,13 @@ class Minifier(object):
             match = regex.search(html)
         return html
 
+    def removeComments(self, html):
+        return re.sub(r"<!--(?!\[if.*?\]).*?(?!\[endif.*?\])-->", "", html)
+
     def minify(self):
         html = self.html
         html = self.stripWhitespace(html)
         html = self.collapseWhitespace(html)
         html = self.removeWhitespaceTags(html)
+        html = self.removeComments(html)
         return html
