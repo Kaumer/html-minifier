@@ -1,5 +1,5 @@
 import unittest
-from html_minifier import Minifier
+from html_minifier.minify import Minifier
 
 class TestSequenceFunctions(unittest.TestCase):
 
