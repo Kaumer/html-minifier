@@ -1,2 +1,2 @@
 # html-minifier
-a minifier for html
+a minifier for html written in python
