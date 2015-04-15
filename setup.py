@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 minify = __import__('html_minifier')
 
-setup(name='html minifier',
+setup(name='html-minifier',
       version=minify.get_version(),
       description='a module for minify html',
       author='Leonardo orozco',
