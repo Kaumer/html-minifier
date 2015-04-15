@@ -3,6 +3,10 @@
 History
 =======
 
+0.0.4
+=======
+* simplify and optimization
+
 0.0.3
 =======
 * optimization and changes for reuse
