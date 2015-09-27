@@ -1,11 +1,13 @@
-#encoding:utf-8
+# encoding:utf-8
 import re
+
 
 class Minifier(object):
 
     _re_for_Whitespace = r"\s+"
     _re_for_commets = r"<!--(?!\[if.*?\]).*?(?!\[endif.*?\])-->"
-    _array = ("}{","><","}<",">{")
+    _array = ("}{", "><", "}<", ">{")
+    _array_regex = (r"}\s{", r">\s<", r"}\s<", r">\s{")
 
     def __init__(self, html=""):
         self.html = html
@@ -16,8 +18,7 @@ class Minifier(object):
         self.remove_bracket_greater = re.compile(r">\s")
 
     def list_regex_spaces_tags(self):
-        array = (r"}\s{",r">\s<",r"}\s<",r">\s{")
-        return map(lambda w: re.compile(w), array)
+        return map(lambda w: re.compile(w), self._array_regex)
 
     def stripWhitespace(self, html):
         return html.strip()
@@ -30,9 +31,9 @@ class Minifier(object):
         return self.remove_bracket_less.sub("<", html)
 
     def removeWhitespaceTags(self, html):
-        enum =  enumerate(self.remove_spaces_in_tags)
-        for i,regex in enum:
-            html = regex.sub(self._array[i],html)
+        enum = enumerate(self.remove_spaces_in_tags)
+        for i, regex in enum:
+            html = regex.sub(self._array[i], html)
         return html
 
     def removeComments(self, html):
@@ -46,3 +47,12 @@ class Minifier(object):
         html = self.removeWhiteSpacesBrackets(html)
         html = self.removeWhitespaceTags(html)
         return html
+
+
+class DjangoMinifier(Minifier):
+
+    def __init__(self, html=""):
+        self._array += ("{{", "}}", "{%", "%}")
+        self._array_regex += (r"(\s+)?{{(\s+)?", r"(\s+)?}}(\s+)?",
+                              r"(\s+)?{%(\s+)?", r"(\s+)?%}(\s+)?")
+        super(DjangoMinifier, self).__init__(html)

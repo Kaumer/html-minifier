@@ -1,10 +1,12 @@
-VERSION = (0, 0, 4)
+from .minify import Minifier, DjangoMinifier
+from .version import VERSION, get_version
 
-__version__ = '.'.join((str(each) for each in VERSION[:4]))
 
-def get_version():
-    """
-    Returns string with digit parts only as version.
-    """
-    
-    return '.'.join((str(each) for each in VERSION[:3]))
+__version__ = get_version()
+
+
+__all__ = [
+    Minifier.__name__,
+    DjangoMinifier.__name__,
+    get_version.__name__,
+]
